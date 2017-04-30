@@ -1,10 +1,10 @@
 # shape-changer
-TERA-Proxy Shape Changer. Allows you to change your character appearence.
+TERA-Proxy Shape Changer. Allows you to change your character appearance.
 ## Commands 
 **!sc SHAPE STACKS** 
 * SHAPE is head/grow/thighs/chest.
 * head is not using STACKS argument.
-* STACKS is number of stacks of the desired effect (4 stacks are the default appearence).
+* STACKS is a number of stacks of the desired effect (4 stacks are the default appearance).
 ## Examples
  * `!sc head`  - applies big head effect on your character, using this command again restores your head
  * `!sc grow 7` - enlarges your character same as if u use Shape changer: Grow item 3x
