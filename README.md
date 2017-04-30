@@ -1,5 +1,5 @@
 # shape-changer
-TERA Shape Changer. Allows you to change your character appearence.
+TERA-Proxy Shape Changer. Allows you to change your character appearence.
 ## Commands 
 **!sc SHAPE STACKS** 
 * SHAPE is head/grow/thighs/chest.
