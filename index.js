@@ -9,6 +9,8 @@ const 	HEAD_ID = 7000001,
 		DCHILL_ID = 91101300,
 		DFIRE_ID = 91100200,
 		MIWINGS_ID = 3000,
+      		RAG_ID  = 10155130,
+		REAP_ID = 10151010,
 		DARKAN_ID = 97950009
 
 module.exports = function ShapeChanger(dispatch) {
@@ -23,6 +25,8 @@ const {protocol} = require('tera-data-parser'),
 	  mistate = false,
 	  chillstate = false,
 	  firestate = false,
+      	  ragstate = false,
+	  reapstate = false,
 	  darkanstate = false;
   
   
@@ -140,6 +144,32 @@ const {protocol} = require('tera-data-parser'),
 			removeChange(cid, sid, 1)
 			return
    }
+   // Ragnarok
+   else if (args[1] == 'rag'){
+		sid = RAG_ID;
+			if(ragstate === false) {
+			ragstate = true;
+			applyChange(cid, sid, 1)
+			return
+			}	
+			else 
+			ragstate = false;
+			removeChange(cid, sid, 1)
+			return
+   }
+   // Shadow Reaping
+   else if (args[1] == 'reap'){
+		sid = REAP_ID;
+			if(reapstate === false) {
+			reapstate = true;
+			applyChange(cid, sid, 1)
+			return
+			}	
+			else 
+			reapstate = false;
+			removeChange(cid, sid, 1)
+			return
+   }
    // Grow
    else if (args[1] == 'grow'){
 		sid = GROW_ID;
@@ -181,6 +211,10 @@ const {protocol} = require('tera-data-parser'),
 		removeChange(cid, CHEST_ID, 4)
 		removeChange(cid, GROW_ID, 4)
 		removeChange(cid, THIGH_ID, 4)
+		reapstate = false;
+		removeChange(cid, REAP_ID, 1)
+		ragstate = false;
+		removeChange(cid, RAG_ID, 1)
 		miwingstate = false;
 		removeChange(cid, MIWINGS_ID, 1)
 		lachestate = false;
