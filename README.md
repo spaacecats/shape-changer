@@ -2,7 +2,7 @@
 TERA-proxy Shape Changer. Allows you to change your character appearance.
 ## Commands: 
 * **!sc SHAPE STACK** 
-* **`SHAPE`** is head/darkan/fire/ice/wings/marrow/lache/mi/grow/thighs/chest.
+* **`SHAPE`** is head/darkan/fire/ice/wings/marrow/lache/mi/reap/rag/grow/thighs/chest.
 * **`STACK`** is number of stacks of the desired effect (4 stacks are the default appearance).
 ## Usage:
 * **`!sc head`**  - applies big head effect on your character, using this command again restores your head
@@ -13,6 +13,8 @@ TERA-proxy Shape Changer. Allows you to change your character appearance.
 * **`!sc mi`** - applies Murderous Intent effect (old pvp blackening buff)
 * **`!sc wings`**  - gives you Darkan Wings together with Murderous Intent Buff
 * **`!sc darkan`** - gives you Darkan Wings (TERA Rewards T10 effect)
+* **`!sc rag`** - Ragnarok visual effect
+* **`!sc reap`** - Shadow Reaping effect
   * None of the effects above uses secondary **STACK** argument!
   * Type the command again to remove effect.
   * All of the effects can be combined together.
