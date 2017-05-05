@@ -41,6 +41,41 @@ const {protocol} = require('tera-data-parser'),
 	reapstate = false, 
 	darkanstate = false;		 
   });
+	
+dispatch.hook('cReviveNow', 1, (event) => {
+	timeout = setTimeout(restoreEffect, 3000)
+	});
+  
+  function restoreEffect(){
+	clearTimeout(timeout)
+	if (marrowstate){
+		message(` Reapplying MARROW`)
+		applyChange(cid, MARROW_ID, 1)}
+	if (lachestate){
+		message(` Reapplying LACHE`)
+		applyChange(cid, LACHE_ID, 1)}
+	if (miwingstate){
+		message(` Reapplying MIWINGS`)
+		applyChange(cid, MIWINGS_ID, 1)}
+	if (mistate){
+		message(` Reapplying MI`)
+		applyChange(cid, MI_ID, 1)}
+	if (chillstate){
+		message(` Reapplying ICE`)
+		applyChange(cid, DCHILL_ID, 1)}
+	if (firestate){
+		message(` Reapplying FIRE`)
+		applyChange(cid, DFIRE_ID, 1)}
+	if (ragstate){
+		message(` Reapplying RAG`)
+		applyChange(cid, RAG_ID, 1)}
+	if (reapstate){
+		message(` Reapplying REAP`)
+		applyChange(cid, REAP_ID, 1)}
+	if (darkanstate){
+		message(` Reapplying DARKAN`)
+		applyChange(cid, DARKAN_ID, 1)}
+  }
   
   const slash = new Slash(dispatch)
 	slash.on('sc', (args) => {
@@ -129,19 +164,6 @@ const {protocol} = require('tera-data-parser'),
    // Lachelith debuff effect
     else if (args[1] == 'lache'){
 		sid = LACHE_ID;
-			if(mistate === false) {
-			mistate = true;
-			applyChange(cid, sid, 1)
-			return
-			}	
-			else 
-			mistate = false;
-			removeChange(cid, sid, 1)
-			return
-   }
-   // Murderous Intent
-   else if (args[1] == 'mi'){
-		sid = MI_ID;
 			if(lachestate === false) {
 			lachestate = true;
 			applyChange(cid, sid, 1)
@@ -149,6 +171,19 @@ const {protocol} = require('tera-data-parser'),
 			}	
 			else 
 			lachestate = false;
+			removeChange(cid, sid, 1)
+			return
+   }
+   // Murderous Intent
+   else if (args[1] == 'mi'){
+		sid = MI_ID;
+			if(mistate === false) {
+			mistate = true;
+			applyChange(cid, sid, 1)
+			return
+			}	
+			else 
+			mistate = false;
 			removeChange(cid, sid, 1)
 			return
    }
@@ -239,6 +274,7 @@ const {protocol} = require('tera-data-parser'),
 		removeChange(cid, DCHILL_ID, 1)
 		darkanstate = false;
 		removeChange(cid, DARKAN_ID, 1)
+		message(` All Effects have been removed!`)	
 				
    }
 	return false
@@ -269,5 +305,16 @@ const {protocol} = require('tera-data-parser'),
 				target: cid,
 				id: sid,
 			});	
+	}
+ function message(msg) {
+		dispatch.toClient('S_CHAT', 1, {
+			channel: 24,
+			authorID: 0,
+			unk1: 0,
+			gm: 0,
+			unk2: 0,
+			authorName: '',
+			message:  '[Shape-changer] '+msg
+		})
 	}
 }
