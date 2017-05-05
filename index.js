@@ -16,22 +16,30 @@ const 	HEAD_ID = 7000001,
 module.exports = function ShapeChanger(dispatch) {
 const {protocol} = require('tera-data-parser'),
 	  Slash = require('./slash')
-  let cid,
-	  stack,
-	  headstate = false,
-	  marrowstate = false,
-	  lachestate = false,
-	  miwingstate = false,
-	  mistate = false,
-	  chillstate = false,
-	  firestate = false,
-      	  ragstate = false,
-	  reapstate = false,
-	  darkanstate = false;
-  
-  
+  let 	cid,
+	headstate,
+	marrowstate,
+	lachestate,
+	miwingstate,
+	mistate,
+	chillstate,
+	firestate,
+      	ragstate,
+	reapstate,
+	darkanstate;
+    
  dispatch.hook('sLogin', 1, (event) => {
-    cid = event.cid;
+    	cid = event.cid;
+    	headstate = false, 
+    	marrowstate = false, 
+	lachestate = false, 
+	miwingstate = false,
+	mistate = false, 
+	chillstate = false, 
+	firestate = false, 
+	ragstate = false, 
+	reapstate = false, 
+	darkanstate = false;		 
   });
   
   const slash = new Slash(dispatch)
