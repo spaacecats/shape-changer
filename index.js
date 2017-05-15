@@ -1,5 +1,5 @@
 
-const 	HEAD_ID = 7000001,
+const 	HEAD_ID = 7000001,					/* 99008900 - alliance winner, 99008800 - alliance hero,*/
 		GROW_ID = 7000005,
 		THIGH_ID = 7000014,
 		CHEST_ID = 7000012,
@@ -9,29 +9,33 @@ const 	HEAD_ID = 7000001,
 		DCHILL_ID = 91101300,
 		DFIRE_ID = 91100200,
 		MIWINGS_ID = 3000,
-      		RAG_ID  = 10155130,
+		RAG_ID  = 10155130,
 		REAP_ID = 10151010,
+		NOCT_ID = 920,
 		DARKAN_ID = 97950009
+		
+		
+		
 
 module.exports = function ShapeChanger(dispatch) {
 const {protocol} = require('tera-data-parser'),
 	  Slash = require('./slash')
-  let 	cid,
-	headstate,
-	marrowstate,
-	lachestate,
-	miwingstate,
-	mistate,
-	chillstate,
-	firestate,
-      	ragstate,
-	reapstate,
-	darkanstate;
-    
+  let cid,	
+	  headstate,
+	  marrowstate,
+	  lachestate,
+	  miwingstate,
+	  mistate,
+	  chillstate,
+	  firestate,
+	  ragstate,
+	  reapstate,
+	  darkanstate;
+	   
  dispatch.hook('sLogin', 1, (event) => {
-    	cid = event.cid;
-    	headstate = false, 
-    	marrowstate = false, 
+    cid = event.cid;
+	headstate = false, 
+	marrowstate = false, 
 	lachestate = false, 
 	miwingstate = false,
 	mistate = false, 
@@ -39,47 +43,50 @@ const {protocol} = require('tera-data-parser'),
 	firestate = false, 
 	ragstate = false, 
 	reapstate = false, 
-	darkanstate = false;		 
-  });
+	darkanstate = false,
+	noctstate = false;
+	});
 	
-dispatch.hook('cReviveNow', 1, (event) => {
+  dispatch.hook('cReviveNow', 1, (event) => {
 	timeout = setTimeout(restoreEffect, 3000)
 	});
   
   function restoreEffect(){
 	clearTimeout(timeout)
 	if (marrowstate){
-		message(` Reapplying MARROW`)
-		applyChange(cid, MARROW_ID, 1)}
+		message(` Re-applying MARROW`)
+	applyChange(cid, MARROW_ID, 1)}
 	if (lachestate){
-		message(` Reapplying LACHE`)
-		applyChange(cid, LACHE_ID, 1)}
+		message(` Re-applying LACHE`)
+	applyChange(cid, LACHE_ID, 1)}
 	if (miwingstate){
-		message(` Reapplying MIWINGS`)
-		applyChange(cid, MIWINGS_ID, 1)}
+		message(` Re-applying MIWINGS`)
+	applyChange(cid, MIWINGS_ID, 1)}
 	if (mistate){
-		message(` Reapplying MI`)
-		applyChange(cid, MI_ID, 1)}
+		message(` Re-applying MI`)
+	applyChange(cid, MI_ID, 1)}
 	if (chillstate){
-		message(` Reapplying ICE`)
-		applyChange(cid, DCHILL_ID, 1)}
+		message(` Re-applying ICE`)
+	applyChange(cid, DCHILL_ID, 1)}
 	if (firestate){
-		message(` Reapplying FIRE`)
-		applyChange(cid, DFIRE_ID, 1)}
+		message(` Re-applying FIRE`)
+	applyChange(cid, DFIRE_ID, 1)}
 	if (ragstate){
-		message(` Reapplying RAG`)
-		applyChange(cid, RAG_ID, 1)}
+		message(` Re-applying RAG`)
+	applyChange(cid, RAG_ID, 1)}
 	if (reapstate){
-		message(` Reapplying REAP`)
-		applyChange(cid, REAP_ID, 1)}
+		message(` Re-applying REAP`)
+	applyChange(cid, REAP_ID, 1)}
 	if (darkanstate){
-		message(` Reapplying DARKAN`)
-		applyChange(cid, DARKAN_ID, 1)}
+		message(` Re-applying DARKAN`)
+	applyChange(cid, DARKAN_ID, 1)}
   }
-  
+	  
+		    
   const slash = new Slash(dispatch)
 	slash.on('sc', (args) => {
 		Commands(args)
+		
   })
 	
  function Commands(args) {
@@ -161,8 +168,21 @@ dispatch.hook('cReviveNow', 1, (event) => {
 			removeChange(cid, sid, 1)
 			return
    }
-   // Lachelith debuff effect
-    else if (args[1] == 'lache'){
+   // Murderous Intent
+    else if (args[1] == 'mi'){
+		sid = MI_ID;
+			if(mistate === false) {
+			mistate = true;
+			applyChange(cid, sid, 1)
+			return
+			}	
+			else 
+			mistate = false;
+			removeChange(cid, sid, 1)
+			return
+   }
+  // Lachelith debuff effect
+   else if (args[1] == 'lache'){
 		sid = LACHE_ID;
 			if(lachestate === false) {
 			lachestate = true;
@@ -174,16 +194,16 @@ dispatch.hook('cReviveNow', 1, (event) => {
 			removeChange(cid, sid, 1)
 			return
    }
-   // Murderous Intent
-   else if (args[1] == 'mi'){
-		sid = MI_ID;
-			if(mistate === false) {
-			mistate = true;
+   //Blue Noct
+   else if (args[1] == 'noct'){
+		sid = NOCT_ID;
+			if(noct === false) {
+			lachestate = true;
 			applyChange(cid, sid, 1)
 			return
 			}	
 			else 
-			mistate = false;
+			noctstate = false;
 			removeChange(cid, sid, 1)
 			return
    }
@@ -213,6 +233,18 @@ dispatch.hook('cReviveNow', 1, (event) => {
 			removeChange(cid, sid, 1)
 			return
    }
+   // Testing
+   /*else if (args[1] == 'test'){
+		sid = TEST_ID;
+		stack = args[2];
+			if (stack == 0){
+			removeChange(cid, sid, stack)
+			return
+			}
+			else
+			applyChange(cid, sid, stack)
+			return
+		}*/
    // Grow
    else if (args[1] == 'grow'){
 		sid = GROW_ID;
@@ -274,13 +306,18 @@ dispatch.hook('cReviveNow', 1, (event) => {
 		removeChange(cid, DCHILL_ID, 1)
 		darkanstate = false;
 		removeChange(cid, DARKAN_ID, 1)
-		message(` All Effects have been removed!`)	
-				
+		noctstate = false;
+		removeChange(cid, NOCT_ID, 1)
+		message(` All Effects have been removed!`)		
    }
 	return false
 	}
 
  function applyChange (cid, sid, stack){
+	dispatch.toClient('S_ABNORMALITY_END', 1, {
+				target: cid,
+				id: sid,
+			});	
 	dispatch.toClient('S_ABNORMALITY_BEGIN', 2, {
 				target: cid,
 				source: cid,
@@ -296,18 +333,18 @@ dispatch.hook('cReviveNow', 1, (event) => {
 				target: cid,
 				source: cid,                      
 				id: sid,                      	  //Sometimes abnormality disappears and needs to be restored before removing.
-				duration: 864000000,		  //This makes sure u can restore your appearance and no abnormality icon is left in your buff bar.
+				duration: 864000000,			  //This makes sure u can restore your appearance and no abnormality icon is left in your buff bar.
 				unk: 0,
 				stacks: stack,
 				unk2: 0,
 			});
-		dispatch.toClient('S_ABNORMALITY_END', 1, {
+	dispatch.toClient('S_ABNORMALITY_END', 1, {
 				target: cid,
 				id: sid,
 			});	
 	}
  function message(msg) {
-		dispatch.toClient('S_CHAT', 1, {
+	dispatch.toClient('S_CHAT', 1, {
 			channel: 24,
 			authorID: 0,
 			unk1: 0,
