@@ -15,6 +15,7 @@ TERA-proxy Shape Changer. Allows you to change your character appearance.
 * **`!sc darkan`** - gives you Darkan Wings (TERA Rewards T10 effect)
 * **`!sc rag`** - Ragnarok visual effect
 * **`!sc reap`** - Shadow Reaping effect
+* **`!sc noct`** - Blue Noctenium Infusion effect
   * None of the effects above uses secondary **STACK** argument!
   * Type the command again to remove effect.
   * All of the effects can be combined together.
