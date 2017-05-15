@@ -200,7 +200,7 @@ const {protocol} = require('tera-data-parser'),
    //Blue Noct
    else if (args[1] == 'noct'){
 		sid = NOCT_ID;
-			if(noct === false) {
+			if(noctstate === false) {
 			lachestate = true;
 			applyChange(cid, sid, 1)
 			return
