@@ -80,6 +80,9 @@ const {protocol} = require('tera-data-parser'),
 	if (darkanstate){
 		message(` Re-applying DARKAN`)
 	applyChange(cid, DARKAN_ID, 1)}
+	if (noctstate){
+		message(` Re-applying DARKAN`)
+	applyChange(cid, NOCT_ID, 1)}
   }
 	  
 		    
