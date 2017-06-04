@@ -1,5 +1,5 @@
 
-const 	HEAD_ID = 7000001,					/* 99008900 - alliance winner, 99008800 - alliance hero,*/
+const 	HEAD_ID = 7000001,					/* 99008900 - alliance winner, 99008800 - alliance hero, 77703412*/
 		GROW_ID = 7000005,
 		THIGH_ID = 7000014,
 		CHEST_ID = 7000012,
@@ -12,7 +12,8 @@ const 	HEAD_ID = 7000001,					/* 99008900 - alliance winner, 99008800 - alliance
 		RAG_ID  = 10155130,
 		REAP_ID = 10151010,
 		NOCT_ID = 920,
-		DARKAN_ID = 97950009
+		DARKAN_ID = 97950009,
+		INTI_ID = 401400
 		
 		
 		
@@ -30,6 +31,7 @@ const {protocol} = require('tera-data-parser'),
 	  firestate,
 	  ragstate,
 	  reapstate,
+	  intistate,
 	  darkanstate;
 	   
  dispatch.hook('sLogin', 1, (event) => {
@@ -43,6 +45,7 @@ const {protocol} = require('tera-data-parser'),
 	firestate = false, 
 	ragstate = false, 
 	reapstate = false, 
+	intistate = false,
 	darkanstate = false,
 	noctstate = false;
 	});
@@ -56,6 +59,9 @@ const {protocol} = require('tera-data-parser'),
 	if (marrowstate){
 		message(` Re-applying MARROW`)
 	applyChange(cid, MARROW_ID, 1)}
+	if (intistate){
+		message(` Re-applying INTIMIDATION`)
+	applyChange(cid, INTI_ID, 1)}
 	if (lachestate){
 		message(` Re-applying LACHE`)
 	applyChange(cid, LACHE_ID, 1)}
@@ -142,6 +148,19 @@ const {protocol} = require('tera-data-parser'),
 			}	
 			else 
 			darkanstate = false;
+			removeChange(cid, sid, 1)
+			return
+   }
+   //Intimidation
+   else if (args[1] == 'inti'){
+		sid = INTI_ID;
+			if(intistate === false) {
+			intistate = true;
+			applyChange(cid, sid, 1)
+			return
+			}	
+			else 
+			intistate = false;
 			removeChange(cid, sid, 1)
 			return
    }
@@ -292,6 +311,8 @@ const {protocol} = require('tera-data-parser'),
 		reapstate = false;
 		removeChange(cid, REAP_ID, 1)
 		ragstate = false;
+		removeChange(cid, INTI_ID, 1)
+		intistate = false;
 		removeChange(cid, RAG_ID, 1)
 		miwingstate = false;
 		removeChange(cid, MIWINGS_ID, 1)
