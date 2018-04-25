@@ -1,3 +1,4 @@
+const Command = require('command');
 
 const 	HEAD_ID = 7000001,					/* 99008900 - alliance winner, 99008800 - alliance hero, 77703412*/
 		GROW_ID = 7000005,
@@ -19,8 +20,8 @@ const 	HEAD_ID = 7000001,					/* 99008900 - alliance winner, 99008800 - alliance
 		
 
 module.exports = function ShapeChanger(dispatch) {
-const {protocol} = require('tera-data-parser'),
-	  Slash = require('./slash')
+    const command = Command(dispatch);
+    
   let cid,	
 	  headstate,
 	  marrowstate,
@@ -34,8 +35,8 @@ const {protocol} = require('tera-data-parser'),
 	  intistate,
 	  darkanstate;
 	   
- dispatch.hook('sLogin', 1, (event) => {
-    cid = event.cid;
+ dispatch.hook('sLogin', 10, (event) => {
+    cid = event.gameId;
 	headstate = false, 
 	marrowstate = false, 
 	lachestate = false, 
@@ -50,7 +51,7 @@ const {protocol} = require('tera-data-parser'),
 	noctstate = false;
 	});
 	
-  dispatch.hook('cReviveNow', 1, (event) => {
+  dispatch.hook('cReviveNow', 2, (event) => {
 	timeout = setTimeout(restoreEffect, 3000)
 	});
   
@@ -91,16 +92,10 @@ const {protocol} = require('tera-data-parser'),
 	applyChange(cid, NOCT_ID, 1)}
   }
 	  
-		    
-  const slash = new Slash(dispatch)
-	slash.on('sc', (args) => {
-		Commands(args)
-		
-  })
-	
- function Commands(args) {
+    command.add('sc', (arg1, arg2) => {
+        
 	// Big Head
-	if (args[1] == 'head'){
+	if (arg1 == 'head'){
 		sid = HEAD_ID;
 			if(headstate === false) {
 			headstate = true;
@@ -113,7 +108,7 @@ const {protocol} = require('tera-data-parser'),
 			return
    }
    // Marrow Brooch black effect
-   else if (args[1] == 'marrow'){
+   else if (arg1 == 'marrow'){
 		sid = MARROW_ID;
 			if(marrowstate === false) {
 			marrowstate = true;
@@ -126,7 +121,7 @@ const {protocol} = require('tera-data-parser'),
 			return
    }
    // Murderous Intent with Wings
-    else if (args[1] == 'wings'){
+    else if (arg1 == 'wings'){
 		sid = MIWINGS_ID;
 			if(miwingstate === false) {
 			miwingstate = true;
@@ -139,7 +134,7 @@ const {protocol} = require('tera-data-parser'),
 			return
    }
    // Darkan P2Wings
-   else if (args[1] == 'darkan'){
+   else if (arg1 == 'darkan'){
 		sid = DARKAN_ID;
 			if(darkanstate === false) {
 			darkanstate = true;
@@ -152,7 +147,7 @@ const {protocol} = require('tera-data-parser'),
 			return
    }
    //Intimidation
-   else if (args[1] == 'inti'){
+   else if (arg1 == 'inti'){
 		sid = INTI_ID;
 			if(intistate === false) {
 			intistate = true;
@@ -165,7 +160,7 @@ const {protocol} = require('tera-data-parser'),
 			return
    }
    // Kelsaik's Ice
-   else if (args[1] == 'ice'){
+   else if (arg1 == 'ice'){
 		sid = DCHILL_ID;
 			if(chillstate === false) {
 			chillstate = true;
@@ -178,7 +173,7 @@ const {protocol} = require('tera-data-parser'),
 			return
    }
    // Kelsaik's Fire
-   else if (args[1] == 'fire'){
+   else if (arg1 == 'fire'){
 		sid = DFIRE_ID;
 			if(firestate === false) {
 			firestate = true;
@@ -191,7 +186,7 @@ const {protocol} = require('tera-data-parser'),
 			return
    }
    // Murderous Intent
-    else if (args[1] == 'mi'){
+    else if (arg1 == 'mi'){
 		sid = MI_ID;
 			if(mistate === false) {
 			mistate = true;
@@ -204,7 +199,7 @@ const {protocol} = require('tera-data-parser'),
 			return
    }
   // Lachelith debuff effect
-   else if (args[1] == 'lache'){
+   else if (arg1 == 'lache'){
 		sid = LACHE_ID;
 			if(lachestate === false) {
 			lachestate = true;
@@ -217,7 +212,7 @@ const {protocol} = require('tera-data-parser'),
 			return
    }
    //Blue Noct
-   else if (args[1] == 'noct'){
+   else if (arg1 == 'noct'){
 		sid = NOCT_ID;
 			if(noctstate === false) {
 			lachestate = true;
@@ -230,7 +225,7 @@ const {protocol} = require('tera-data-parser'),
 			return
    }
    // Ragnarok
-   else if (args[1] == 'rag'){
+   else if (arg1 == 'rag'){
 		sid = RAG_ID;
 			if(ragstate === false) {
 			ragstate = true;
@@ -243,7 +238,7 @@ const {protocol} = require('tera-data-parser'),
 			return
    }
    // Shadow Reaping
-   else if (args[1] == 'reap'){
+   else if (arg1 == 'reap'){
 		sid = REAP_ID;
 			if(reapstate === false) {
 			reapstate = true;
@@ -256,9 +251,9 @@ const {protocol} = require('tera-data-parser'),
 			return
    }
    // Testing
-   /*else if (args[1] == 'test'){
+   /*else if (arg1 == 'test'){
 		sid = TEST_ID;
-		stack = args[2];
+		stack = arg2;
 			if (stack == 0){
 			removeChange(cid, sid, stack)
 			return
@@ -268,9 +263,9 @@ const {protocol} = require('tera-data-parser'),
 			return
 		}*/
    // Grow
-   else if (args[1] == 'grow'){
+   else if (arg1 == 'grow'){
 		sid = GROW_ID;
-		stack = args[2];
+		stack = arg2;
 			if (stack == 4){
 			removeChange(cid, sid, stack)
 			return
@@ -280,9 +275,9 @@ const {protocol} = require('tera-data-parser'),
 			return
 		}
 	// Thighs
-	else if (args[1] == 'thighs'){
+	else if (arg1 == 'thighs'){
 		sid = THIGH_ID;
-		stack = args[2];
+		stack = arg2;
 			if (stack == 4){
 			removeChange(cid, sid, stack)
 			return
@@ -292,9 +287,9 @@ const {protocol} = require('tera-data-parser'),
 			return
 		}
 	// Chest
-	else if (args[1] == 'chest'){
+	else if (arg1 == 'chest'){
 		sid = CHEST_ID;
-		stack = args[2];
+		stack = arg2;
 			if (stack == 4){
 			removeChange(cid, sid, stack)
 			return
@@ -304,7 +299,7 @@ const {protocol} = require('tera-data-parser'),
 			return
 		}
 	// Reset All
-	else if (args[1] == 'reset'){
+	else if (arg1 == 'reset'){
 		removeChange(cid, CHEST_ID, 4)
 		removeChange(cid, GROW_ID, 4)
 		removeChange(cid, THIGH_ID, 4)
@@ -335,7 +330,7 @@ const {protocol} = require('tera-data-parser'),
 		message(` All Effects have been removed!`)		
    }
 	return false
-	}
+	})
 
  function applyChange (cid, sid, stack){
 	dispatch.toClient('S_ABNORMALITY_END', 1, {
@@ -368,14 +363,6 @@ const {protocol} = require('tera-data-parser'),
 			});	
 	}
  function message(msg) {
-	dispatch.toClient('S_CHAT', 1, {
-			channel: 24,
-			authorID: 0,
-			unk1: 0,
-			gm: 0,
-			unk2: 0,
-			authorName: '',
-			message:  '[Shape-changer] '+msg
-		})
+    command.message('[Shape-changer] ' + msg);
 	}
 }
